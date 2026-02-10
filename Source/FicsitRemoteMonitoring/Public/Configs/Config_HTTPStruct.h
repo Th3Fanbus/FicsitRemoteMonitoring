@@ -42,9 +42,9 @@ public:
         UConfigManager* ConfigManager = World->GetGameInstance()->GetSubsystem<UConfigManager>();
         UConfigPropertySection* ConfigurationRootSection = ConfigManager->GetConfigurationRootSection(ConfigId);
 
-        if (ConfigurationRootSection->SectionProperties.Contains("Authentication_Token"))
+        if (UConfigPropertyString* PropAuthToken = Cast<UConfigPropertyString>(ConfigurationRootSection->SectionProperties.FindRef("Authentication_Token")))
         {
-            Cast<UConfigPropertyString>(ConfigurationRootSection->SectionProperties["Authentication_Token"])->Value = Authentication_Token;
+            PropAuthToken->Value = Authentication_Token;
         }
 
         ConfigManager->MarkConfigurationDirty(ConfigId);
